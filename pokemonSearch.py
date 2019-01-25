@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from collections import Counter
 from string import punctuation
-pokes = open("C:/Users/Max Kiss/Desktop/New folder/pokefinal.txt","r")
+pokes = open("C:/Users/Max Kiss/Desktop/Bender/pokefinal.txt","r")
 pokesText = pokes.read()
 pokeList = []
 for line in pokesText.split():
