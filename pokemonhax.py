@@ -3,12 +3,12 @@ import pokemonSearch as ps
 import time
 import random
 
-TOKEN = 'MzM2MDU5NzEzODQ4NDc1NjQ4.DyG8nA.Rn8dxlnDUPSPCPYAtYnnf2qwdDE'
+secretFile = open("Secret.txt","r")
+TOKEN = secretFile.read().strip()
 
 client = discord.Client()
-zach = [' you suck', ' has a hot mom', ' Sarah said no, sorry', ' Go home', ' *heavy breathing*', ' Sugar juice?', ' try again later', ' Voted worst white kid in this Discord 3 years running', ' has sweaty hands', ' "I hit him for 5 shots!!"']
 dm_list = []
-help_cmd = '\n !online to check bot status \n !mode (dm,channel,silent) to change how I give hints \n !dm to be added to the dm hints list \n !remove to removed from the hints mailer'
+help_cmd = '\n b!online to check bot status \n b!mode (dm,channel,silent) to change how I give hints \n b!dm to be added to the dm hints list \n b!remove to removed from the hints mailer'
 global mode
 mode = 'channel'
 
@@ -19,68 +19,63 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('!help'):
+    if message.content.startswith('b!help'):
         msg = '{0.author.mention} I slid in those dms with a list of my commands'.format(message)
         await client.send_message(message.channel, msg)
         msg = help_cmd
         await client.send_message(message.author, msg)
         return
 
-    if message.content.startswith('!remove'):
+    if message.content.startswith('b!remove'):
         if message.author in dm_list:
             msg = '{0.author.mention} Sad to see you go NOT'.format(message)
             dm_list.remove(message.author)
             await client.send_message(message.channel, msg)
             return
         if message.author not in dm_list:
-            msg = '{0.author.mention} I dont even dm you, you dumb as hell'.format(message)
+            msg = '{0.author.mention} I dont even dm you'.format(message)
             await client.send_message(message.channel, msg)
             return
 
-    if message.content.startswith('!setting'):
+    if message.content.startswith('b!setting'):
         msg = 'I am in ' + mode +' mode'.format(message)
         await client.send_message(message.channel, msg)
         return
 
-    if message.content.startswith('!mode dm'):
+    if message.content.startswith('b!mode dm'):
         mode = 'dm'
         msg = 'SHHHH pokemon hints are now secret. use !dm to be added to the list'.format(message)
         await client.send_message(message.channel, msg)
         return
 
-    if message.content.startswith('!mode silent'):
+    if message.content.startswith('b!mode silent'):
         mode = 'silent'
         msg = 'I wont give any hints now :('.format(message)
         await client.send_message(message.channel, msg)
         return
 
-    if message.content.startswith('!mode channel'):
+    if message.content.startswith('b!mode channel'):
         mode = 'channel'
         msg = 'OOOH boi, everyone gets to see my hints'.format(message)
         await client.send_message(message.channel, msg)
         return
 
-    if message.content.startswith('!dm'):
+    if message.content.startswith('b!dm'):
         if message.author not in dm_list:
             dm_list.append(message.author)
             msg = '{0.author.mention} added to the dm list'.format(message)
             await client.send_message(message.channel, msg)
             return
         if message.author in dm_list:
-            msg = '{0.author.mention} stooopid you are already on the list, message !remove to be taken off the list'.format(message)
+            msg = '{0.author.mention} you are already on the list, message !remove to be taken off the list'.format(message)
             await client.send_message(message.channel, msg)
             return
 
-    if message.content.startswith('!online'):
+    if message.content.startswith('b!online'):
         msg = 'I am still working!'.format(message)
         await client.send_message(message.channel, msg)
         return
 
-    """if ((message.author.id == '201196011534680064') & (random.randrange(10) == 3)):
-        msg = message.author.mention + random.choice(zach)
-        await client.send_message(message.channel, msg)
-        return"""
-    
     if (message.author.id == '365975655608745985'):
         if mode != 'silent':
             try:

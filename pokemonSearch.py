@@ -2,7 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from collections import Counter
 from string import punctuation
-pokes = open("C:/Users/Max Kiss/Desktop/Bender/pokefinal.txt","r")
+
+pokes = open("pokefinal.txt","r")
 pokesText = pokes.read()
 pokeList = []
 for line in pokesText.split():
@@ -26,8 +27,3 @@ def getPoke(img_link):
         if x[0] in pokeList:
             result = x[0]
             return (result)
-    """for i in range(0,5):
-        if (common[i][0] not in ['',' ','pokemon','Pokémon','pokémon','is','the','and','sun','go','moon','evolution','a','to','in','wiki', 'of', 'x','×']):
-            result += common[i][0] + " "
-    words = result.split()"""
-
